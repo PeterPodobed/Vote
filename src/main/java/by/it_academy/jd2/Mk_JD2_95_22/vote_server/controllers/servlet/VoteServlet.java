@@ -23,7 +23,11 @@ public class VoteServlet extends HttpServlet {
     private final String GENRES = "genre";
     private final String ABOUT = "about";
     private final String EMAIL = "email";
-
+    private int genre_1;
+    private int genre_2;
+    private int genre_3;
+    private int genre_4;
+    private int genre_5;
     public List<Vote> newVote = new ArrayList<>();
 
     private final IVoteService service;
@@ -67,11 +71,26 @@ public class VoteServlet extends HttpServlet {
             throw new IllegalArgumentException("Необходимо выбрать от 3 до 5 жанров");
 
         }
-        int genre_1 = (newVoteGenre[0] == null) ? null : Integer.parseInt(newVoteGenre[0]);
-        int genre_2 = (newVoteGenre[1] == null) ? null : Integer.parseInt(newVoteGenre[1]);
-        int genre_3 = (newVoteGenre[2] == null) ? null : Integer.parseInt(newVoteGenre[2]);
-        int genre_4 = (newVoteGenre[3] == null) ? null : Integer.parseInt(newVoteGenre[3]);
-        int genre_5 = (newVoteGenre[4] == null) ? null : Integer.parseInt(newVoteGenre[4]);
+
+        if (newVoteGenre.length == 3) {
+            genre_1 = (newVoteGenre[0] == null) ? null : Integer.parseInt(newVoteGenre[0]);
+            genre_2 = (newVoteGenre[1] == null) ? null : Integer.parseInt(newVoteGenre[1]);
+            genre_3 = (newVoteGenre[2] == null) ? null : Integer.parseInt(newVoteGenre[2]);
+            genre_4 = 0;
+            genre_5 = 0;
+        } else if (newVoteGenre.length == 4) {
+            genre_1 = (newVoteGenre[0] == null) ? null : Integer.parseInt(newVoteGenre[0]);
+            genre_2 = (newVoteGenre[1] == null) ? null : Integer.parseInt(newVoteGenre[1]);
+            genre_3 = (newVoteGenre[2] == null) ? null : Integer.parseInt(newVoteGenre[2]);
+            genre_4 = (newVoteGenre[3] == null) ? null : Integer.parseInt(newVoteGenre[3]);
+            genre_5 = 0;
+        } else {
+            genre_1 = (newVoteGenre[0] == null) ? null : Integer.parseInt(newVoteGenre[0]);
+            genre_2 = (newVoteGenre[1] == null) ? null : Integer.parseInt(newVoteGenre[1]);
+            genre_3 = (newVoteGenre[2] == null) ? null : Integer.parseInt(newVoteGenre[2]);
+            genre_4 = (newVoteGenre[3] == null) ? null : Integer.parseInt(newVoteGenre[3]);
+            genre_5 = (newVoteGenre[4] == null) ? null : Integer.parseInt(newVoteGenre[4]);
+        }
 
 
         String[] abouts = parameterMap.get(ABOUT);
@@ -83,7 +102,6 @@ public class VoteServlet extends HttpServlet {
         this.service.save(new Vote(artist, genre_1, genre_2, genre_3, genre_4, genre_5, newVoteAbout, newVoteEmail, time));
 
     }
-
 
 
 }
