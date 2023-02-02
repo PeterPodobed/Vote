@@ -98,6 +98,9 @@ public class VoteServlet extends HttpServlet {
 
         String[] email = parameterMap.get(EMAIL);
         String newVoteEmail = (email == null) ? null : email[0];
+        if (newVoteEmail == null) {
+            throw new IllegalArgumentException("Вы не указали адрес электронной почты");
+        }
 
         this.service.save(new Vote(artist, genre_1, genre_2, genre_3, genre_4, genre_5, newVoteAbout, newVoteEmail, time));
 
