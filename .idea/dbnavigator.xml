@@ -26,11 +26,28 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" dataset="public.vote" active-filter-id="" />
     <filter-actions connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" dataset="public.artists" active-filter-id="" />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_4.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/Artist.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_5.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_3.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_1.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_2.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces>
+      <mapping database-type="POSTGRES" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
@@ -50,7 +67,7 @@
           <database value="vote" />
           <type value="USER_PASSWORD" />
           <user value="postgres" />
-          <deprecated-pwd value="MTQ3MjU4" />
+          <deprecated-pwd value="cG9zdGdyZXM=" />
         </database>
         <properties>
           <auto-commit value="false" />
@@ -134,7 +151,7 @@
           <database value="vote" />
           <type value="USER_PASSWORD" />
           <user value="postgres" />
-          <deprecated-pwd value="MTQ3MjU4" />
+          <deprecated-pwd value="" />
         </database>
         <properties>
           <auto-commit value="false" />

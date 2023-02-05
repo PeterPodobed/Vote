@@ -1,27 +1,32 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto;
 
-public class ResultVoteDto {
-    private int resultArtist;
-    private int resultGenre;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Artists;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Genres;
 
-    public ResultVoteDto(int resultArtist, int resultGenre) {
+import java.util.List;
+
+public class ResultVoteDto {
+    private List<ResultArtistDto> resultArtist;
+    private List<ResultGenreDto> resultGenre;
+
+    public ResultVoteDto(List<ResultArtistDto> resultArtist, List<ResultGenreDto> resultGenre) {
         this.resultArtist = resultArtist;
         this.resultGenre = resultGenre;
     }
 
-    public int getResultArtist() {
+    public List<ResultArtistDto> getResultArtist() {
         return resultArtist;
     }
 
-    public void setResultArtist(int resultArtist) {
+    public void setResultArtist(List<ResultArtistDto> resultArtist) {
         this.resultArtist = resultArtist;
     }
 
-    public int getResultGenre() {
+    public List<ResultGenreDto> getResultGenre() {
         return resultGenre;
     }
 
-    public void setResultGenre(int resultGenre) {
+    public void setResultGenre(List<ResultGenreDto> resultGenre) {
         this.resultGenre = resultGenre;
     }
 

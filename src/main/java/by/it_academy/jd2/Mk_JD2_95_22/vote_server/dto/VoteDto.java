@@ -24,6 +24,42 @@ public class VoteDto {
             return new VoteBuilder();
         }
 
+        public int getArtist() {
+            return artist;
+        }
+
+        public int getGenre_1() {
+            return genre_1;
+        }
+
+        public int getGenre_2() {
+            return genre_2;
+        }
+
+        public int getGenre_3() {
+            return genre_3;
+        }
+
+        public int getGenre_4() {
+            return genre_4;
+        }
+
+        public int getGenre_5() {
+            return genre_5;
+        }
+
+        public String getAbout() {
+            return about;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public LocalDateTime getDt_create() {
+            return dt_create;
+        }
+
         public VoteBuilder setArtist(int artist) {
             this.artist = artist;
             return this;
