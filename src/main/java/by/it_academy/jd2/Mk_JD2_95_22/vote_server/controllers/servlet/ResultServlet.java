@@ -41,7 +41,7 @@ public class ResultServlet extends HttpServlet {
         List<ResultArtistDto> resultArtist = resultVoteDto.getResultArtist();
         List<ResultGenreDto> resultGenre = resultVoteDto.getResultGenre();
 
-//        resultArtist.forEach((k) -> writer.write("<p>" + k.getNumberArtist() + " - " + k.getCount() ));
+        resultArtist.forEach((k) -> writer.write("<p>" + k.getNumberArtist() + " - " + k.getCount()));
 //        resultGenre.forEach(k -> writer.write(k.getNumberGenre() + " - " + k.getCount()));
 
     }

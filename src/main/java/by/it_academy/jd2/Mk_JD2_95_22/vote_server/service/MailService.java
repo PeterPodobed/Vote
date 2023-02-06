@@ -38,13 +38,13 @@ public class MailService implements IMailService {
     }
 
     @Override
-    public void sendMail(Vote vote) {
+    public void sendMail(Vote newVote) {
 
         EntityManager entityManager = factory.createEntityManager();
         entityManager.getTransaction().begin();
 
-        if (validateMail(vote.getEmail())) {
-            System.out.println("The email address " + vote.getEmail() + " is valid");
+        if (validateMail(newVote.getEmail())) {
+            System.out.println("The email address " + newVote.getEmail() + " is valid");
         } else {
             throw new IllegalArgumentException("Некорректный email. Проверьте правильность введенных данных");
         }
@@ -56,20 +56,20 @@ public class MailService implements IMailService {
 
             message.setFrom(new InternetAddress(EMAIL_SENDER));
 
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(vote.getEmail()));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(newVote.getEmail()));
 
             StringBuilder stringBuilder = new StringBuilder();
             message.setSubject("Ваш голос принят.");
 
-            stringBuilder.append("Вы проголосовали за исполнителя №: " + vote.getArtist() + "\n");
-            stringBuilder.append("Вы проголосовали за жанры №: " + vote.getGenre_1() + ", " + vote.getGenre_2() + ", " + vote.getGenre_3() + ", "
-                    + vote.getGenre_4() + ", " + vote.getGenre_5() + "\n");
-            stringBuilder.append("Вы оставили о себе следующее сообщение: " + vote.getAbout() + ".\n");
-            stringBuilder.append("Вы проголосовали " + vote.getDt_create() + ".\n");
+            stringBuilder.append("Вы проголосовали за исполнителя №: " + newVote.getArtist() + "\n");
+            stringBuilder.append("Вы проголосовали за жанры №: " + newVote.getGenre_1() + ", " + newVote.getGenre_2() + ", " + newVote.getGenre_3() + ", "
+                    + newVote.getGenre_4() + ", " + newVote.getGenre_5() + "\n");
+            stringBuilder.append("Вы оставили о себе следующее сообщение: " + newVote.getAbout() + ".\n");
+            stringBuilder.append("Вы проголосовали " + newVote.getDt_create() + ".\n");
             message.setText(stringBuilder.toString());
 
             Transport tr = session.getTransport();
-            tr.connect(null, "");
+            tr.connect(null, "123");
             tr.sendMessage(message, message.getAllRecipients());
             tr.close();
 

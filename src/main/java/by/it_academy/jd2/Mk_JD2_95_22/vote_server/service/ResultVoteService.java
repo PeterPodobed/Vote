@@ -7,10 +7,12 @@ import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IArtistsService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IGenresService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IResultVoteService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IVoteService;
+import org.postgresql.core.NativeQuery;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.*;
 
 public class ResultVoteService implements IResultVoteService {
@@ -48,7 +50,8 @@ public class ResultVoteService implements IResultVoteService {
     public List<ResultArtistDto> getTopArtist() {
         EntityManager entityManager = factory.createEntityManager();
         entityManager.getTransaction().begin();
-        resultArtist = entityManager.createNativeQuery(INQUIRY_ARTIST).getResultList();
+
+        resultArtist = entityManager.createQuery("select max(artist), count(artist) as count from Vote group by artist").getResultList();
 
         entityManager.getTransaction().commit();
         entityManager.close();
