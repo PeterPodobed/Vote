@@ -1,9 +1,11 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.service;
 
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dao.api.IArtistsDao;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ArtistsDto;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.entity.Artists;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IArtistsService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistsService implements IArtistsService {
@@ -14,8 +16,16 @@ public class ArtistsService implements IArtistsService {
     }
 
     @Override
-    public List<Artists> get() {
-        return dao.get();
+    public List<ArtistsDto> get() {
+        List<Artists> artistsList = dao.get();
+
+        List<ArtistsDto> list = new ArrayList<>();
+
+        for (Artists artists : artistsList) {
+            list.add(new ArtistsDto(artists.getId(), artists.getNameArtist()));
+        }
+
+        return list;
     }
 
     @Override

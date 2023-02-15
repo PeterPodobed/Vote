@@ -1,38 +1,20 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.service;
 
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultArtistDto;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultGenreDto;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultVoteDto;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.*;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IArtistsService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IGenresService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IResultVoteService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IVoteService;
-import org.postgresql.core.NativeQuery;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ResultVoteService implements IResultVoteService {
     private IVoteService voteService;
     private IArtistsService artistsService;
     private IGenresService genresService;
 
-    private final String INQUIRY_ARTIST = "select max(artist), count(artist) as count from Vote group by artist " +
-            "order by count desc limit 1";
-    private final String INQUIRY_GENRE_1 = "select max (genre_1), count(genre_1) from Vote group by (genre_1)";
-    private final String INQUIRY_GENRE_2 = "select max (genre_2), count(genre_2) from Vote group by (genre_2)";
-    private final String INQUIRY_GENRE_3 = "select max (genre_3), count(genre_3) from Vote group by (genre_3)";
-    private final String INQUIRY_GENRE_4 = "select max (genre_4), count(genre_4) from Vote group by (genre_4)";
-    private final String INQUIRY_GENRE_5 = "select max (genre_5), count(genre_5) from Vote group by (genre_5)";
-
-    private List<ResultArtistDto> resultArtist = new ArrayList<>();
-    private List<ResultGenreDto> resultGenre = new ArrayList<>();
-
-    EntityManagerFactory factory =
-            Persistence.createEntityManagerFactory("tutorial");
 
     public ResultVoteService(IVoteService voteService, IArtistsService artistsService, IGenresService genresService) {
         this.voteService = voteService;
@@ -41,37 +23,67 @@ public class ResultVoteService implements IResultVoteService {
     }
 
     @Override
-    public ResultVoteDto getResult() {
-
-        return new ResultVoteDto(getTopArtist(), getTopGenre());
+    public VoteFinalDto getResult() {
+        return new VoteFinalDto(getTopArtist(), getTopGenre(), getAbout());
     }
 
     @Override
-    public List<ResultArtistDto> getTopArtist() {
-        EntityManager entityManager = factory.createEntityManager();
-        entityManager.getTransaction().begin();
-
-        resultArtist = entityManager.createQuery("select max(artist), count(artist) as count from Vote group by artist").getResultList();
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
-        return resultArtist;
+    public Map<ArtistsDto, Integer> getTopArtist() {
+        Map<ArtistsDto, Integer> mapArtist = new HashMap<>();
+        List<ArtistsDto> artistsDtos = artistsService.get();
+        for (ArtistsDto artist : artistsDtos) {
+            mapArtist.put(artist, 0);
+        }
+        List<ResultVoteDto> resultVoteDtoList = voteService.get();
+        for (ResultVoteDto resultVoteDto : resultVoteDtoList) {
+            long idArtist = resultVoteDto.getArtist();
+            for (ArtistsDto artistsDto : artistsDtos) {
+                if (idArtist == artistsDto.getId()) {
+                    mapArtist.put(artistsDto, mapArtist.get(artistsDto) + 1);
+                }
+            }
+        }
+        return mapArtist.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Collections.reverseOrder(Integer::compare)))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue
+                        , (v1, v2) -> v1, LinkedHashMap::new));
     }
 
     @Override
-    public List<ResultGenreDto> getTopGenre() {
-        EntityManager entityManager = factory.createEntityManager();
-        entityManager.getTransaction().begin();
+    public Map<GenresDto, Integer> getTopGenre() {
+        Map<GenresDto, Integer> mapGenre = new HashMap<>();
+        List<GenresDto> genreDTOS = genresService.get();
 
-        resultGenre.addAll(entityManager.createQuery(INQUIRY_GENRE_1).getResultList());
-        resultGenre.addAll(entityManager.createQuery(INQUIRY_GENRE_2).getResultList());
-        resultGenre.addAll(entityManager.createQuery(INQUIRY_GENRE_3).getResultList());
-        resultGenre.addAll(entityManager.createQuery(INQUIRY_GENRE_4).getResultList());
-        resultGenre.addAll(entityManager.createQuery(INQUIRY_GENRE_5).getResultList());
-
-//        entityManager.getTransaction().commit();
-        entityManager.close();
-        return resultGenre;
+        for (GenresDto genreDTO : genreDTOS) {
+            mapGenre.put(genreDTO, 0);
+        }
+        List<ResultVoteDto> resultVoteDtos = voteService.get();
+        for (ResultVoteDto resultVoteDto : resultVoteDtos) {
+            long[] idGenre = resultVoteDto.getGenre();
+            for (GenresDto genreDTO : genreDTOS) {
+                for (long i : idGenre) {
+                    if (i == genreDTO.getId()) {
+                        mapGenre.put(genreDTO, mapGenre.get(genreDTO) + 1);
+                    }
+                }
+            }
+        }
+        return mapGenre.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Collections.reverseOrder(Integer::compare)))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue
+                        , (v1, v2) -> v1, LinkedHashMap::new));
     }
+    @Override
+    public Map<LocalDateTime, String> getAbout(){
+        List<ResultVoteDto> resultVoteDtos = voteService.get();
+        Map<LocalDateTime, String> mapUser = new HashMap<>();
+        for (ResultVoteDto resultVoteDto : resultVoteDtos) {
+            mapUser.put(resultVoteDto.getDt_create(), resultVoteDto.getAbout());
+        }
+        return mapUser.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Collections.reverseOrder(LocalDateTime::compareTo)))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue
+                        , (v1, v2) -> v1, LinkedHashMap::new));
+    }
+
 }

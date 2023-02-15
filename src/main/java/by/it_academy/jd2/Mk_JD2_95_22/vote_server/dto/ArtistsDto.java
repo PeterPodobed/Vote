@@ -11,6 +11,9 @@ public class ArtistsDto {
         this.nameArtist = nameArtist;
     }
 
+    public ArtistsDto() {
+    }
+
     public long getId() {
         return id;
     }

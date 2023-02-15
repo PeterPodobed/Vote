@@ -2,6 +2,7 @@ package by.it_academy.jd2.Mk_JD2_95_22.vote_server.service;
 
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dao.api.IVoteDao;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultVoteDto;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.entity.Genres;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.entity.Vote;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IArtistsService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IGenresService;
@@ -30,9 +31,24 @@ public class VoteService implements IVoteService {
     }
 
     @Override
-    public List<Vote> get() {
-        return this.dao.get();
-    }
+    public List<ResultVoteDto> get() {
+        List<ResultVoteDto> resultVoteDtos = new ArrayList<>();
+        List<Vote> all = dao.get();
+        for (Vote vote : all) {
+            String email = vote.getEmail();
+            LocalDateTime dtCreate = vote.getDt_create();
+            String about = vote.getAbout();
+            Long idArtist = vote.getArtist().getId();
+
+            List<Genres> genre = vote.getGenre();
+            long[] genres = new long[genre.size()];
+            for (int i = 0; i < genres.length; i++) {
+                genres[i] = genre.get(i).getId();
+            }
+            ResultVoteDto resultVoteDto = new ResultVoteDto(idArtist, genres, about, email, dtCreate);
+            resultVoteDtos.add(resultVoteDto);
+        }
+        return resultVoteDtos;    }
 
     @Override
     public void save(ResultVoteDto newVote) {

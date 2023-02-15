@@ -8,5 +8,5 @@ import java.util.List;
 public interface IVoteService {
     void save(ResultVoteDto newVote);
 
-    List<Vote> get();
+    List<ResultVoteDto> get();
 }

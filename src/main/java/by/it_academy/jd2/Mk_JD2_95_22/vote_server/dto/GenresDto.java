@@ -11,6 +11,9 @@ public class GenresDto {
         this.nameGenre = nameGenre;
     }
 
+    public GenresDto() {
+    }
+
     public long getId() {
         return id;
     }

@@ -1,13 +1,14 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api;
 
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultArtistDto;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultGenreDto;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultVoteDto;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface IResultVoteService {
-    ResultVoteDto getResult();
-    List<ResultArtistDto> getTopArtist();
-    List<ResultGenreDto> getTopGenre();
+    public VoteFinalDto getResult();
+    Map<ArtistsDto, Integer> getTopArtist();
+    Map<GenresDto, Integer> getTopGenre();
+    public Map<LocalDateTime, String> getAbout();
 }
