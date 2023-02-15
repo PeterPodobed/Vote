@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity;
+package by.it_academy.jd2.Mk_JD2_95_22.vote_server.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -8,36 +8,36 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "artists")
-public class Artists {
+@Table(name = "genres")
+public class Genres {
 
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    private String nameArtist;
+    private String nameGenre;
 
-    public Artists() {
+    public Genres() {
     }
 
-    public Artists(String nameArtist) {
-        this.nameArtist = nameArtist;
+    public Genres(String nameGenre) {
+        this.nameGenre = nameGenre;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getNameArtist() {
-        return nameArtist;
+    public String getNameGenre() {
+        return nameGenre;
     }
 
     @Override
     public String toString() {
-        return "Artists{" +
+        return "Genres{" +
                 "id=" + id +
-                ", nameArtist='" + nameArtist + '\'' +
+                ", nameGenre='" + nameGenre + '\'' +
                 '}';
     }
 }

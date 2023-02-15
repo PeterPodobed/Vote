@@ -1,7 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.service;
 
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.VoteDto;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Vote;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultVoteDto;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IMailService;
 
 import javax.mail.Message;
@@ -38,7 +37,7 @@ public class MailService implements IMailService {
     }
 
     @Override
-    public void sendMail(Vote newVote) {
+    public void sendMail(ResultVoteDto newVote) {
 
         EntityManager entityManager = factory.createEntityManager();
         entityManager.getTransaction().begin();
@@ -62,8 +61,7 @@ public class MailService implements IMailService {
             message.setSubject("Ваш голос принят.");
 
             stringBuilder.append("Вы проголосовали за исполнителя №: " + newVote.getArtist() + "\n");
-            stringBuilder.append("Вы проголосовали за жанры №: " + newVote.getGenre_1() + ", " + newVote.getGenre_2() + ", " + newVote.getGenre_3() + ", "
-                    + newVote.getGenre_4() + ", " + newVote.getGenre_5() + "\n");
+            stringBuilder.append("Вы проголосовали за жанры №: " + newVote.getGenre() + "\n");
             stringBuilder.append("Вы оставили о себе следующее сообщение: " + newVote.getAbout() + ".\n");
             stringBuilder.append("Вы проголосовали " + newVote.getDt_create() + ".\n");
             message.setText(stringBuilder.toString());

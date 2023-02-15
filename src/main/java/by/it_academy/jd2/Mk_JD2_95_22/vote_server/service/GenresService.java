@@ -1,7 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.service;
 
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dao.api.IGenresDao;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Genres;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.entity.Genres;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IGenresService;
 
 import java.util.List;
@@ -48,5 +48,13 @@ public class GenresService implements IGenresService {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean numberGenre(long number) {
+        if (number == 0) {
+            throw new IllegalArgumentException("Введите id жанра");
+        }
+        return this.dao.isContain(number);
     }
 }

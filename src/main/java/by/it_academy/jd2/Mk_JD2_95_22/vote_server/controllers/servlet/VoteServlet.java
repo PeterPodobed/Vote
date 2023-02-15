@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.controllers.servlet;
 
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Vote;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultVoteDto;
+import by.it_academy.jd2.Mk_JD2_95_22.vote_server.entity.Vote;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IVoteService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.fabrics.VoteServiceSingleton;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -60,38 +62,20 @@ public class VoteServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         String[] artists = parameterMap.get(ARTIST);
-        String newVoteArtist = (artists == null) ? null : artists[0];
-        if (newVoteArtist == null || artists.length > 1) {
+        if (artists == null || artists.length > 1) {
             throw new IllegalArgumentException("Должен быть указан 1 артист");
         }
-        int artist = Integer.parseInt(newVoteArtist);
+        Long artist = Long.parseLong(artists[0]);
 
         String[] newVoteGenre = parameterMap.get(GENRES);
+        long[] longGenre = Arrays.
+                stream(newVoteGenre)
+                .mapToLong(Long::parseLong)
+                .toArray();
+
         if (newVoteGenre.length < 3 & newVoteGenre.length > 5) {
             throw new IllegalArgumentException("Необходимо выбрать от 3 до 5 жанров");
-
         }
-
-        if (newVoteGenre.length == 3) {
-            genre_1 = (newVoteGenre[0] == null) ? null : Integer.parseInt(newVoteGenre[0]);
-            genre_2 = (newVoteGenre[1] == null) ? null : Integer.parseInt(newVoteGenre[1]);
-            genre_3 = (newVoteGenre[2] == null) ? null : Integer.parseInt(newVoteGenre[2]);
-            genre_4 = 0;
-            genre_5 = 0;
-        } else if (newVoteGenre.length == 4) {
-            genre_1 = (newVoteGenre[0] == null) ? null : Integer.parseInt(newVoteGenre[0]);
-            genre_2 = (newVoteGenre[1] == null) ? null : Integer.parseInt(newVoteGenre[1]);
-            genre_3 = (newVoteGenre[2] == null) ? null : Integer.parseInt(newVoteGenre[2]);
-            genre_4 = (newVoteGenre[3] == null) ? null : Integer.parseInt(newVoteGenre[3]);
-            genre_5 = 0;
-        } else {
-            genre_1 = (newVoteGenre[0] == null) ? null : Integer.parseInt(newVoteGenre[0]);
-            genre_2 = (newVoteGenre[1] == null) ? null : Integer.parseInt(newVoteGenre[1]);
-            genre_3 = (newVoteGenre[2] == null) ? null : Integer.parseInt(newVoteGenre[2]);
-            genre_4 = (newVoteGenre[3] == null) ? null : Integer.parseInt(newVoteGenre[3]);
-            genre_5 = (newVoteGenre[4] == null) ? null : Integer.parseInt(newVoteGenre[4]);
-        }
-
 
         String[] abouts = parameterMap.get(ABOUT);
         String newVoteAbout = (abouts == null) ? null : abouts[0];
@@ -102,7 +86,8 @@ public class VoteServlet extends HttpServlet {
             throw new IllegalArgumentException("Вы не указали адрес электронной почты");
         }
 
-        this.service.save(new Vote(artist, genre_1, genre_2, genre_3, genre_4, genre_5, newVoteAbout, newVoteEmail, time));
+        ResultVoteDto saveVote = new ResultVoteDto(artist, longGenre, newVoteAbout, newVoteEmail, time);
+        this.service.save(saveVote);
 
     }
 

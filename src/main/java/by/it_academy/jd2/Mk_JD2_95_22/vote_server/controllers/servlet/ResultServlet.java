@@ -3,8 +3,6 @@ package by.it_academy.jd2.Mk_JD2_95_22.vote_server.controllers.servlet;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultArtistDto;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultGenreDto;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.ResultVoteDto;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Artists;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Vote;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.api.IResultVoteService;
 import by.it_academy.jd2.Mk_JD2_95_22.vote_server.service.fabrics.ResultVoteServiceSingleton;
 
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(name = "ResultServlet", urlPatterns = "/result")
 public class ResultServlet extends HttpServlet {

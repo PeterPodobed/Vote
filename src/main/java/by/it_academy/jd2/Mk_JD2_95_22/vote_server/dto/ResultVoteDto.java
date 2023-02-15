@@ -1,40 +1,71 @@
 package by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto;
 
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Artists;
-import by.it_academy.jd2.Mk_JD2_95_22.vote_server.dto.entity.Genres;
-
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 public class ResultVoteDto {
-    private List<ResultArtistDto> resultArtist;
-    private List<ResultGenreDto> resultGenre;
+    private long artist;
+    private long[] genre;
+    private String about;
+    private String email;
+    private LocalDateTime dt_create;
 
-    public ResultVoteDto(List<ResultArtistDto> resultArtist, List<ResultGenreDto> resultGenre) {
-        this.resultArtist = resultArtist;
-        this.resultGenre = resultGenre;
+    public ResultVoteDto(long artist, long[] genre, String about, String email, LocalDateTime dt_create) {
+        this.artist = artist;
+        this.genre = genre;
+        this.about = about;
+        this.email = email;
+        this.dt_create = dt_create;
     }
 
-    public List<ResultArtistDto> getResultArtist() {
-        return resultArtist;
+    public long getArtist() {
+        return artist;
     }
 
-    public void setResultArtist(List<ResultArtistDto> resultArtist) {
-        this.resultArtist = resultArtist;
+    public long[] getGenre() {
+        return genre;
     }
 
-    public List<ResultGenreDto> getResultGenre() {
-        return resultGenre;
+    public String getAbout() {
+        return about;
     }
 
-    public void setResultGenre(List<ResultGenreDto> resultGenre) {
-        this.resultGenre = resultGenre;
+    public String getEmail() {
+        return email;
+    }
+
+    public LocalDateTime getDt_create() {
+        return dt_create;
+    }
+
+    public void setArtist(long artist) {
+        this.artist = artist;
+    }
+
+    public void setGenre(long[] genre) {
+        this.genre = genre;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDt_create(LocalDateTime dt_create) {
+        this.dt_create = dt_create;
     }
 
     @Override
     public String toString() {
         return "ResultVoteDto{" +
-                "resultArtist=" + resultArtist +
-                ", resultGenre=" + resultGenre +
+                "artist=" + artist +
+                ", genre=" + Arrays.toString(genre) +
+                ", about='" + about + '\'' +
+                ", email='" + email + '\'' +
+                ", dt_create=" + dt_create +
                 '}';
     }
 }

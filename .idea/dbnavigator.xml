@@ -33,12 +33,8 @@
     <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_4.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
     <mapping file-url="file://$PROJECT_DIR$/postgres/dml/Artist.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
-    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_5.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
-    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_3.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
-    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_1.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
-    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/searchVoteGenre_2.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/postgres/dml/01_addArtists.sql" connection-id="883f49e1-aa8a-41e5-9f7b-42c213ead0ff" session-id="MAIN" current-schema="vote" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
